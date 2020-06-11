@@ -6,7 +6,15 @@ import {
   Button,
   TextInput,
   FlatList,
+  TouchableOpacity,
+  TouchableHighlight,
 } from "react-native";
+
+const MovieItem = ({ item }) => (
+  <View>
+    <Text style={style.moviesItems}>{item}</Text>
+  </View>
+);
 
 export default function App() {
   // State movie
@@ -41,13 +49,17 @@ export default function App() {
         />
         <Button title="Button text" onPress={handleMoviesCollection} />
       </View>
+
       <FlatList
-        keyExtractor={(item, index) => item.key}
+        keyExtractor={(item) => item.key}
         data={moviesCollection}
         renderItem={(itemData) => (
-          <View>
-            <Text style={style.moviesItems}>{itemData.item.value}</Text>
-          </View>
+          <TouchableOpacity
+            activeOpacity={0.3}
+            onPress={() => console.log("Executing function here")}
+          >
+            <MovieItem item={itemData.item.value} />
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -72,6 +84,8 @@ const style = StyleSheet.create({
     marginBottom: 3.55,
   },
   moviesItems: {
+    paddingVertical: 8,
+    backgroundColor: "#ccc",
     marginVertical: 15,
     textAlign: "center",
     width: "100%",
